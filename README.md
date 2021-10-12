@@ -22,7 +22,7 @@ wikiextractor data/kowiki-20210920-pages-articles-multistream.xml.bz2 -o content
 ## 3. idxbook 생성
 idxbook을 생성합니다.
 ```bash
-ikiextract idxbook extract --data-dir contents/
+wikiextract idxbook extract --data-dir contents/
 ```
 
 ## 4. 문장 추출
