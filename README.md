@@ -26,7 +26,13 @@ wikiextract idxbook extract --data-dir contents/
 ```
 
 ## 4. 문장 추출
-name argument를 통해 원하는 토픽의 문장읠 추출합니다.
+name argument를 통해 원하는 토픽의 문장을 추출합니다.
 ```bash
 wikiextract sentence extract --name="백수왕 고라이온" --data-dir contents/ --idxbook idxbook.tsv --save-dir results/
+```
+
+`--line-length` 를 통해 주어진 값보다 character 수가 작은 문장은 추출하지 않고 넘어갈 수 있습니다.
+default 값은 `10`입니다.
+```bash
+wikiextract sentence extract --name="백수왕 고라이온" --data-dir contents/ --idxbook idxbook.tsv --save-dir results/ --line-length 10
 ```
