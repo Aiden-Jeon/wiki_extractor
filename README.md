@@ -16,7 +16,7 @@ wikiextractor를 통해 xml 파일을 추출합니다.
 
 wikiextractor를 통해 해제합니다.
 ```bash
-wikiextractor data/kowiki-20210920-pages-articles-multistream.xml.bz2 -o contents/
+wikiextractor data/kowiki-latest-pages-articles-multistream.xml.bz2 -o contents/
 ```
 
 ## 3. idxbook 생성
