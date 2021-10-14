@@ -30,7 +30,8 @@ setup(
         "wikiextractor",
         "pandas",
         "kss",
-        "typer"
+        "typer",
+        "regex",
     ],
     entry_points={
         "console_scripts": [
