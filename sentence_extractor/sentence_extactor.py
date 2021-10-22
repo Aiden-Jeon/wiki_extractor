@@ -55,10 +55,11 @@ def extract(
     idxbook: str = typer.Option(..., help="Path for idxbook"),
     data_dir: str = typer.Option(..., help="Path for extracted wiki"),
     save_dir: str = typer.Option(..., help="Path to save extracted wiki"),
+    kss: bool = typer.Option(False, is_flag=True, help="Path to save extracted wiki"),
     line_length: int = typer.Option(10, help="Skip sentence which is smaller than given length"),
 ):
     loaded_idxbook = load_idxbook(idxbook)
     lines = extract_lines(name, loaded_idxbook, data_dir)
-    if len(lines) > 0:
-        sentences = extarct_sentences(lines, line_length)
-        dump(name, sentences, save_dir)
+    if len(lines) > 0 and kss:
+        lines = extarct_sentences(lines, line_length)
+    dump(name, lines, save_dir)
