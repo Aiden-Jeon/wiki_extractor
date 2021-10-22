@@ -10,26 +10,43 @@ cd wiki_extractor
 pip install -e .
 ```
 
-## 2. Wikiextract
-wikiextractor를 통해 xml 파일을 추출합니다.
-우선 [링크](https://dumps.wikimedia.org/kowiki/latest/kowiki-latest-pages-articles-multistream.xml.bz2)를 통해위키의 덤프 파일은 다운로드 받습니다. 
-
-wikiextractor를 통해 해제합니다.
-```bash
-wikiextractor data/kowiki-latest-pages-articles-multistream.xml.bz2 -o contents/
-```
+## 2. Wikiextractor
+1. [링크](https://dumps.wikimedia.org/kowiki/latest/kowiki-latest-pages-articles-multistream.xml.bz2)를 통해 위키의 전체 덤프 파일을 다운로드 받습니다.
+2. wikiextractor를 통해 xml 파일을 txt형태로 추출합니다.
+  ```bash
+  wikiextractor data/kowiki-latest-pages-articles-multistream.xml.bz2 -o contents/
+  ```
 
 ## 3. idxbook 생성
-idxbook을 생성합니다.
+문장 추출을 위한 `idxbook.tsv`을 생성합니다.
 ```bash
 wikiextract idxbook extract --data-dir contents/
 ```
+생성된 `idxbook.tsv`은 다음과 같이 생겼습니다.
+```
+name    folder  wiki    line_start      line_end
+백수왕 고라이온 AC      wiki_73 0       20
+오수연 (작가)   AC      wiki_73 21      27
+가나안농군학교  AC      wiki_73 28      33
+실데나필        AC      wiki_73 34      50
+```
+
+각 column의 의미입니다.
+- name: aritcle의 이름
+- folder: wikiextractor에서 추출된 폴더 중 name의 article 내용이 들어있는 폴더
+- wiki: wikiextractor에서 추출된 폴더의 텍스트 중 name의 article 내용이 들어있는 파일 이름
+- line_start: 해당 파일에서 name의 article 내용이 시작하는 줄
+- line_end: 해당 파일에서 name의 article 내용이 끝나는 줄
+
 
 ## 4. Article 추출
 name argument를 통해 원하는 Article을 추출합니다.
 ```bash
 wikiextract sentence extract --name="백수왕 고라이온" --data-dir contents/ --idxbook idxbook.tsv --save-dir results/
 ```
+
+추출된 데이터는 `--save-dir` 을 통해 입력된 곳에 `name.txt`로 저장됩니다.  
+위의 예시에서는 `백수왕 고라이온.txt`로 저장됩니다.   
 `results/백수왕 고라이언.txt`를 확인하면 다음과 같습니다.
 ```bash
 head results/백수왕\ 고라이온.txt
@@ -48,13 +65,14 @@ head results/백수왕\ 고라이온.txt
 ```
 
 ## 5. 문장 분리 후 Article 추출
-`-kss` 옵션을 이용해 문장이 분리된 후 추출 할 수 있습니다.  
+`-kss` 옵션을 이용해 문장이 분리된 Article을 추출 할 수 있습니다.  
 `--line-length` 를 통해 주어진 값보다 character 수가 작은 문장은 추출하지 않고 넘어갈 수 있습니다.
 default 값은 `10`입니다.
 ```bash
 wikiextract sentence extract --name="백수왕 고라이온" --data-dir contents/ --idxbook idxbook.tsv --save-dir results/ --kss --line-length 10
 ```
-`results/백수왕 고라이언.txt`를 확인하면 다음과 같습니다.
+ 
+추출된 `백수왕 고라이온.txt`의 내용은 다음과 같습니다.
 ```bash
 head results/백수왕\ 고라이온.txt
 ```
